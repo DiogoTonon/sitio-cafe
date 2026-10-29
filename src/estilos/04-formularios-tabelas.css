@@ -1,0 +1,310 @@
+select,
+textarea,
+input[type='date'],
+input[type='month'] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  font-family: inherit;
+  padding: 12px;
+  border: 2px solid #8a8272;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+}
+
+select:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.sem-borda {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 4px 20px;
+}
+
+.campo.largo {
+  grid-column: 1 / -1;
+}
+
+.obrig {
+  font-weight: 400;
+  color: #7a1a12;
+  font-size: 0.9rem;
+}
+
+.dica {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #5c5546;
+}
+
+.cabecalho-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.botao-link {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #2f5d3a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.botao-link:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 16px;
+  align-items: end;
+}
+
+.acoes-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.totais {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin: 16px 0;
+}
+
+.totais .rotulo {
+  display: block;
+  font-size: 0.95rem;
+  color: #5c5546;
+}
+
+.totais strong {
+  font-size: 1.3rem;
+}
+
+.tabela-rolagem {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-radius: 12px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #e6e0d4;
+  vertical-align: middle;
+}
+
+.tabela th {
+  background: #f3efe7;
+  font-size: 0.95rem;
+}
+
+.tabela .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.link-forte {
+  color: #1d3d26;
+  font-weight: 700;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 2px solid;
+  font-weight: 700;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.status-pendente {
+  background: #fff6dd;
+  border-color: #a67c00;
+  color: #5c4400;
+}
+
+.status-atrasada {
+  background: #fdecea;
+  border-color: #b42318;
+  color: #7a1a12;
+}
+
+.status-paga {
+  background: #e8f3ea;
+  border-color: #2f5d3a;
+  color: #1d3d26;
+}
+
+.status-parcial {
+  background: #e6eefc;
+  border-color: #1f4fa3;
+  color: #12306b;
+}
+
+.status-cancelada {
+  background: #eeeae2;
+  border-color: #8a8272;
+  color: #5c5546;
+}
+
+.resumo-topo {
+  margin-bottom: 8px;
+}
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.resumo dt {
+  font-size: 0.95rem;
+  color: #5c5546;
+}
+
+.resumo dd {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.resumo-calculo {
+  background: #f3efe7;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+}
+
+.sub-nota {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #5c5546;
+  white-space: normal;
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+.doc-lista {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+.doc-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e0d4;
+}
+
+.doc-nome {
+  display: block;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.doc-meta {
+  display: block;
+  font-size: 0.95rem;
+  color: #5c5546;
+}
+
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 20px;
+}
+
+.aba {
+  padding: 12px 22px;
+  border: 2px solid #2f5d3a;
+  border-radius: 8px;
+  background: #fff;
+  color: #1d3d26;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.aba.ativa {
+  background: #2f5d3a;
+  color: #fff;
+}
+
+.aba:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.forn-card {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-left: 8px solid #8a6d3b;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin: 12px 0;
+}
+
+.forn-nome {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.forn-dados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin: 6px 0 0;
+}
+
+.novo-forn {
+  margin-top: 12px;
+  padding: 14px;
+  background: #f3efe7;
+  border-radius: 10px;
+}
+
+.novo-forn label {
+  margin-top: 0;
+}

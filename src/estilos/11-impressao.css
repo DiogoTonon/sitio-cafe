@@ -1,0 +1,14 @@
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html, body { background: #fff !important; color: #000 !important; }
+  nav, aside, header, footer, button, .nao-imprimir, .alerta-suave { display: none !important; }
+  main, .conteudo, .pagina { margin: 0 !important; padding: 0 !important; max-width: none !important; width: 100% !important; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  tr, td, th { break-inside: avoid; }
+  thead { display: table-header-group; }
+  h1, h2, h3 { break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+  * { box-shadow: none !important; }
+}
+.so-impressao { display: none; }
+@media print { .so-impressao { display: block; } }

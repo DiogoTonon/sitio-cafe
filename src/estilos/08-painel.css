@@ -1,0 +1,57 @@
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 16px;
+}
+
+.botao-link.claro {
+  background: #fff;
+  color: #1d3d26;
+  border: 2px solid #2f5d3a;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.card .rotulo {
+  display: block;
+  font-size: 0.95rem;
+  color: #5c5546;
+}
+
+.card strong {
+  display: block;
+  font-size: 1.5rem;
+  margin: 2px 0;
+}
+
+.alerta,
+.alerta-suave {
+  margin: 10px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid;
+}
+
+.alerta {
+  background: #fdecea;
+  border-color: #b42318;
+  color: #7a1a12;
+}
+
+.alerta-suave {
+  background: #fff6dd;
+  border-color: #a67c00;
+  color: #3d3200;
+}

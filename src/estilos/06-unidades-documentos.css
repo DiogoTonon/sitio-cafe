@@ -1,0 +1,48 @@
+.selo.unidade {
+  color: #3d3a30;
+  border-color: #b3a98f;
+  background: #f7f3e9;
+  font-weight: 600;
+}
+
+.linha select,
+.item-linha select {
+  width: auto;
+  flex: 1;
+  min-width: 200px;
+}
+
+.doc-card {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-left: 8px solid #8a6d3b;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin: 12px 0;
+}
+
+.doc-conta {
+  margin: 8px 0;
+}
+
+.doc-tipo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doc-tipo label {
+  margin: 0;
+}
+
+.doc-tipo select {
+  width: auto;
+  min-width: 160px;
+}
+
+@media (max-width: 760px) {
+  .doc-card {
+    padding: 12px;
+    border-left-width: 6px;
+  }
+}

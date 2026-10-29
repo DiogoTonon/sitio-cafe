@@ -1,0 +1,126 @@
+:root {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Arial, sans-serif;
+  background: #f6f3ee;
+  color: #222;
+  line-height: 1.5;
+}
+
+.centro {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.cartao {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.pagina {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 16px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin: 16px 0 6px;
+}
+
+label.opcao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+}
+
+input[type='email'],
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  padding: 12px;
+  border: 2px solid #8a8272;
+  border-radius: 8px;
+}
+
+input[type='checkbox'] {
+  width: 22px;
+  height: 22px;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.botao {
+  width: 100%;
+  margin-top: 24px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #2f5d3a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.erro {
+  margin-top: 16px;
+  padding: 12px;
+  background: #fdecea;
+  border: 2px solid #b42318;
+  color: #7a1a12;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.aviso {
+  margin-top: 16px;
+  padding: 12px;
+  background: #e8f3ea;
+  border: 2px solid #2f5d3a;
+  color: #1d3d26;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: none;
+  border: 0;
+  font-size: 1.05rem;
+  color: #1f4fa3;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,74 @@
+.topo {
+  background: #2f5d3a;
+  color: #fff;
+  padding: 12px 16px;
+}
+
+.topo-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  max-width: 1000px;
+  margin: 0 auto 8px;
+}
+
+.topo-linha strong {
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.usuario {
+  font-size: 0.95rem;
+}
+
+.botao-sair {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 18px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.item {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 14px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.item:hover {
+  border-color: #fff;
+}
+
+.item.ativo {
+  background: #fff;
+  color: #1d3d26;
+}
+
+.item:focus-visible,
+.botao-sair:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.pagina {
+  max-width: 1000px;
+}
+
+h2 {
+  font-size: 1.25rem;
+}

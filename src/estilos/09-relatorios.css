@@ -1,0 +1,51 @@
+.tabela .total td {
+  font-weight: 800;
+  background: #f3efe7;
+}
+
+.tabela td .sub-nota {
+  white-space: normal;
+}
+
+@media (max-width: 760px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.var-linha {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3d3a30;
+  white-space: nowrap;
+}
+
+.barra-dupla {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 140px;
+}
+
+.barra-fina {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #eee9dd;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 8px;
+}
+
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 600;
+}

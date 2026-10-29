@@ -1,0 +1,178 @@
+.bloco {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.bloco label {
+  margin-top: 0;
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.linha input[type='text'] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.nome {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.desativado {
+  color: #6b6558;
+  text-decoration: line-through;
+}
+
+.selo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 2px solid;
+}
+
+.selo.ativa {
+  color: #1d3d26;
+  border-color: #2f5d3a;
+  background: #e8f3ea;
+}
+
+.selo.inativa {
+  color: #5c5546;
+  border-color: #8a8272;
+  background: #eeeae2;
+}
+
+.nota {
+  color: #5c5546;
+  font-size: 0.95rem;
+}
+
+.subs {
+  margin-top: 12px;
+  padding-left: 16px;
+  border-left: 4px solid #d9d2c5;
+}
+
+.botao-pequeno {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  border: 2px solid #2f5d3a;
+  border-radius: 8px;
+  background: #2f5d3a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.botao-pequeno.secundario {
+  background: #fff;
+  color: #1d3d26;
+}
+
+.botao-pequeno:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.cat-card {
+  background: #fff;
+  border: 1px solid #d9d2c5;
+  border-left: 8px solid #2f5d3a;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.item-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.item-linha input[type='text'] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.item-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
+.item-categoria .item-nome {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.sub-area {
+  margin-top: 16px;
+  padding: 8px 16px 16px;
+  background: #f3efe7;
+  border-radius: 10px;
+}
+
+.item-sub {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd5c6;
+}
+
+.item-sub .item-nome {
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.botao-texto {
+  background: none;
+  border: 0;
+  padding: 8px 2px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f4fa3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.botao-texto:focus-visible {
+  outline: 3px solid #1f6feb;
+  outline-offset: 2px;
+}
+
+.sub-area .linha {
+  margin-top: 16px;
+}
+
+.botao-texto {
+  color: #2f5d3a;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.botao-texto:hover {
+  text-decoration: underline;
+}
+
+.botao-texto.perigo {
+  color: #b42318;
+}
