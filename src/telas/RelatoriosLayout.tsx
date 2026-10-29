@@ -5,6 +5,7 @@ const abas = [
   { para: '/relatorios/lancamentos', texto: 'Receitas e despesas lançadas', fim: false },
   { para: '/relatorios/comparacao', texto: 'Comparação entre anos', fim: false },
   { para: '/relatorios/mensal', texto: 'Mês a mês e fornecedores', fim: false },
+  { para: '/relatorios/categorias', texto: 'Por categoria', fim: false },
 ]
 
 export default function RelatoriosLayout() {

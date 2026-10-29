@@ -25,6 +25,7 @@ import Comparacao from './telas/Comparacao'
 import MesAMes from './telas/MesAMes'
 import HistoricoLayout from './telas/HistoricoLayout'
 import Exportar from './telas/Exportar'
+import PorCategoria from './telas/PorCategoria'
 
 export default function App() {
   const { sessao, carregando, recuperando, finalizarRecuperacao } = useSessao()
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="lancamentos" element={<Lancamentos />} />
           <Route path="comparacao" element={<Comparacao />} />
           <Route path="mensal" element={<MesAMes />} />
+          <Route path="categorias" element={<PorCategoria />} />
         </Route>
           <Route path="cadastros" element={<Cadastros />}>
             <Route index element={<Navigate to="categorias" replace />} />
