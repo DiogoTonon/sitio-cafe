@@ -11,7 +11,6 @@ import {
   formatarMoeda,
   formatarPrecoUnitario,
   formatarQuantidade,
-  hojeISO,
   lerQuantidade,
   lerValor,
   numeroBR,
@@ -38,6 +37,7 @@ type Conta = {
   unidade_codigo: string | null
   preco_unitario: number | null
   data_lancamento: string
+  data_emissao: string | null
   data_vencimento: string
   competencia: string | null
   forma_pagamento: string | null
@@ -48,6 +48,8 @@ type Conta = {
   total_pago: number
   saldo_principal: number
   status: string
+  paga_com_atraso: boolean
+  dias_atraso_pagamento: number | null
 }
 
 const FORMAS = ['Dinheiro', 'PIX', 'Boleto', 'Transferência', 'Cartão', 'Cheque', 'Outra']
@@ -85,7 +87,7 @@ export default function DespesaForm() {
   const [valorTexto, setValorTexto] = useState('')
   const [quantidadeTexto, setQuantidadeTexto] = useState('')
   const [vencimento, setVencimento] = useState('')
-  const [lancamento, setLancamento] = useState(hojeISO())
+  const [emissao, setEmissao] = useState('')
   const [competencia, setCompetencia] = useState('')
   const [forma, setForma] = useState('')
   const [observacoes, setObservacoes] = useState('')
@@ -132,7 +134,7 @@ export default function DespesaForm() {
         setValorTexto(numeroBR(d.valor_original))
         setQuantidadeTexto(d.quantidade !== null ? formatarQuantidade(d.quantidade) : '')
         setVencimento(d.data_vencimento)
-        setLancamento(d.data_lancamento)
+        setEmissao(d.data_emissao ?? '')
         setCompetencia(d.competencia ? d.competencia.slice(0, 7) : '')
         setForma(d.forma_pagamento ?? '')
         setObservacoes(d.observacoes ?? '')
@@ -228,7 +230,7 @@ export default function DespesaForm() {
       valor_original: valor,
       quantidade,
       unidade_codigo: quantidade !== null && unidade ? unidade.codigo : null,
-      data_lancamento: lancamento,
+      data_emissao: emissao,
       data_vencimento: vencimento,
       competencia: competencia ? `${competencia}-01` : null,
       forma_pagamento: forma || null,
@@ -339,7 +341,11 @@ export default function DespesaForm() {
       {conta && (
         <section className="bloco">
           <div className="resumo-topo">
-            <StatusBadge status={conta.status} />
+            <StatusBadge
+              status={conta.status}
+              pagaComAtraso={conta.paga_com_atraso}
+              dias={conta.dias_atraso_pagamento}
+            />
           </div>
           <dl className="resumo">
             <div>
@@ -357,6 +363,14 @@ export default function DespesaForm() {
             <div>
               <dt>Vencimento</dt>
               <dd>{formatarData(conta.data_vencimento)}</dd>
+            </div>
+            <div>
+              <dt>Emissão da nota</dt>
+              <dd>{conta.data_emissao ? formatarData(conta.data_emissao) : '—'}</dd>
+            </div>
+            <div>
+              <dt>Lançada no sistema em</dt>
+              <dd>{formatarData(conta.data_lancamento)}</dd>
             </div>
             {conta.quantidade !== null && conta.preco_unitario !== null && (
               <>
@@ -584,17 +598,17 @@ export default function DespesaForm() {
             </div>
 
             <div className="campo">
-              <label htmlFor="lancamento">
-                Data do lançamento <span className="obrig">(obrigatório)</span>
+              <label htmlFor="emissao">
+                Data de emissão da nota <span className="obrig">(obrigatório)</span>
               </label>
               <input
-                id="lancamento"
+                id="emissao"
                 type="date"
                 required
-                value={lancamento}
-                onChange={(e) => setLancamento(e.target.value)}
+                value={emissao}
+                onChange={(e) => setEmissao(e.target.value)}
               />
-              <span className="dica">Dia em que a conta foi registrada aqui.</span>
+              <span className="dica">Data impressa na nota fiscal.</span>
             </div>
 
             <div className="campo">

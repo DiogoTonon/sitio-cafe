@@ -316,3 +316,9 @@ h3 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.status-paga-atraso {
+  background: #fbeccb;
+  color: #7a4a00;
+  border-color: #e0b95c;
+}

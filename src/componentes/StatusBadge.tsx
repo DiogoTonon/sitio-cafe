@@ -9,7 +9,13 @@ const classes: Record<string, string> = {
   Cancelado: 'status-cancelada',
 }
 
-export default function StatusBadge({ status }: { status: string }) {
+type Props = { status: string; pagaComAtraso?: boolean; dias?: number | null }
+
+export default function StatusBadge({ status, pagaComAtraso = false, dias = null }: Props) {
+  if (status === 'Paga' && pagaComAtraso) {
+    const texto = dias && dias > 0 ? ` · ${dias} ${dias === 1 ? 'dia' : 'dias'}` : ''
+    return <span className="status status-paga-atraso">Paga com atraso{texto}</span>
+  }
   return (
     <span className={`status ${classes[status] ?? 'status-cancelada'}`}>
       {status === 'Atrasada' ? '⚠ ' : ''}

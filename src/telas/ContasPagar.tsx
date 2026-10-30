@@ -28,6 +28,8 @@ type Conta = {
   data_vencimento: string
   saldo_principal: number
   status: string
+  paga_com_atraso: boolean
+  dias_atraso_pagamento: number | null
 }
 
 const STATUS_ABERTOS = ['Pendente', 'Atrasada', 'Parcialmente paga']
@@ -97,6 +99,8 @@ export default function ContasPagar() {
         .limit(LIMITE)
 
       if (filtroStatus === 'abertas') consulta = consulta.in('status', STATUS_ABERTOS)
+      else if (filtroStatus === 'paga_atraso')
+        consulta = consulta.eq('status', 'Paga').eq('paga_com_atraso', true)
       else if (filtroStatus !== 'todos') consulta = consulta.eq('status', filtroStatus)
 
       if (filtroAno !== 'todos') {
@@ -198,6 +202,7 @@ export default function ContasPagar() {
             <option value="Pendente">Pendentes</option>
             <option value="Parcialmente paga">Parcialmente pagas</option>
             <option value="Paga">Pagas</option>
+            <option value="paga_atraso">Pagas com atraso</option>
             <option value="Cancelada">Canceladas</option>
           </select>
         </div>
@@ -371,7 +376,11 @@ export default function ContasPagar() {
                         {l.status === 'Cancelada' ? '—' : formatarMoeda(l.saldo_principal)}
                       </td>
                       <td>
-                        <StatusBadge status={l.status} />
+                        <StatusBadge
+                          status={l.status}
+                          pagaComAtraso={l.paga_com_atraso}
+                          dias={l.dias_atraso_pagamento}
+                        />
                       </td>
                     </tr>
                   )
