@@ -88,6 +88,7 @@ create table public.contas_pagar (
   subcategoria_id uuid,
   valor_original numeric(12,2) not null check (valor_original > 0),
   data_lancamento date not null default ((now() at time zone 'America/Sao_Paulo')::date),
+    data_emissao date,
   data_vencimento date not null,
   competencia date check (competencia is null or extract(day from competencia) = 1),
   forma_pagamento text,
@@ -887,13 +888,23 @@ select
     when base.quantidade is not null and base.quantidade > 0
     then round(base.valor_original / base.quantidade, 4)
   end as preco_unitario,
-  case
+
+    case
     when base.cancelada then 'Cancelada'
     when base.principal_pago >= base.valor_original then 'Paga'
     when base.data_vencimento < (now() at time zone 'America/Sao_Paulo')::date then 'Atrasada'
     when base.principal_pago > 0 then 'Parcialmente paga'
     else 'Pendente'
-  end as status
+  end as status,
+  coalesce(not base.cancelada
+           and base.principal_pago >= base.valor_original
+           and base.ultimo_pagamento > base.data_vencimento, false) as paga_com_atraso,
+  case
+    when not base.cancelada
+         and base.principal_pago >= base.valor_original
+         and base.ultimo_pagamento > base.data_vencimento
+    then base.ultimo_pagamento - base.data_vencimento
+  end as dias_atraso_pagamento
 from base;
 
 create view public.v_contas_receber with (security_invoker = true) as
@@ -1290,6 +1301,31 @@ language sql stable set search_path = public as $$
   ) x;
 $$;
 
+create function public.relatorio_subcategorias(
+  p_ano int,
+  p_categoria uuid default null,
+  p_subcategoria uuid default null
+) returns jsonb
+language sql stable set search_path = public as $$
+  select coalesce(jsonb_agg(jsonb_build_object(
+           'categoria', categoria, 'subcategoria', subcategoria,
+           'total', total, 'qtd', qtd)
+           order by categoria, total desc), '[]'::jsonb)
+  from (
+    select cat.nome as categoria,
+           coalesce(sub.nome, 'Sem subcategoria') as subcategoria,
+           sum(p.valor_pago) as total,
+           count(*) as qtd
+      from public.pagamentos p
+      join public.contas_pagar c on c.id = p.conta_id
+      join public.categorias cat on cat.id = c.categoria_id
+      left join public.subcategorias sub on sub.id = c.subcategoria_id
+     where p.data_pagamento between make_date(p_ano, 1, 1) and make_date(p_ano, 12, 31)
+       and (p_categoria is null or c.categoria_id = p_categoria)
+       and (p_subcategoria is null or c.subcategoria_id = p_subcategoria)
+     group by cat.id, cat.nome, sub.id, sub.nome
+  ) x;
+$$;
 -- ---------------------------------------------------------------------
 -- 6. SEGURANÇA (RLS e permissões)
 -- ---------------------------------------------------------------------
@@ -1363,6 +1399,9 @@ revoke all on function public.painel_inicio(), public.relatorio_fluxo(int),
 grant execute on function public.painel_inicio(), public.relatorio_fluxo(int),
   public.relatorio_lancamentos(int), public.relatorio_formas(int),
   public.relatorio_mensal(int), public.relatorio_fornecedores(int) to authenticated;
+  
+revoke all on function public.relatorio_subcategorias(int, uuid, uuid) from public, anon;
+grant execute on function public.relatorio_subcategorias(int, uuid, uuid) to authenticated;
 
 -- ---------------------------------------------------------------------
 -- 7. ARMAZENAMENTO PRIVADO DE DOCUMENTOS
