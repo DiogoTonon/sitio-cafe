@@ -358,7 +358,12 @@ export default function ContasPagar() {
                       <td>
                         {nomeCategoria[l.categoria_id] ?? '—'}
                         {l.subcategoria_id && nomeSubcategoria[l.subcategoria_id] && (
-                          <span className="sub-nota">{nomeSubcategoria[l.subcategoria_id]}</span>
+                          <span
+                            className="sub-nota sub-categoria"
+                            title={nomeSubcategoria[l.subcategoria_id]}
+                          >
+                            {nomeSubcategoria[l.subcategoria_id]}
+                          </span>
                         )}
                       </td>
                       <td className="num">{formatarMoeda(l.valor_original)}</td>
