@@ -12,12 +12,14 @@ import {
 } from '../lib/formatar'
 
 type Categoria = { id: string; nome: string }
+type Subcategoria = { id: string; nome: string; categoria_id: string }
 type Fornecedor = { id: string; nome: string; ativo: boolean }
 type Unidade = { codigo: string; simbolo: string }
 type Conta = {
   id: string
   descricao: string
   categoria_id: string
+  subcategoria_id: string | null
   fornecedor_id: string | null
   valor_original: number
   quantidade: number | null
@@ -37,6 +39,7 @@ function somar(valores: number[]) {
 
 export default function ContasPagar() {
   const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [subcategorias, setSubcategorias] = useState<Subcategoria[]>([])
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
   const [unidades, setUnidades] = useState<Unidade[]>([])
   const [linhas, setLinhas] = useState<Conta[]>([])
@@ -50,6 +53,7 @@ export default function ContasPagar() {
   const [filtroStatus, setFiltroStatus] = useState(situacaoInicial)
   const [filtroAno, setFiltroAno] = useState('todos')
   const [filtroCategoria, setFiltroCategoria] = useState('')
+  const [filtroSubcategoria, setFiltroSubcategoria] = useState('')
   const [filtroFornecedor, setFiltroFornecedor] = useState('')
   const [busca, setBusca] = useState('')
   const [buscaAplicada, setBuscaAplicada] = useState('')
@@ -63,6 +67,11 @@ export default function ContasPagar() {
       .select('id, nome')
       .order('nome')
       .then(({ data }) => setCategorias(data ?? []))
+    supabase
+      .from('subcategorias')
+      .select('id, nome, categoria_id')
+      .order('nome')
+      .then(({ data }) => setSubcategorias(data ?? []))
     supabase
       .from('fornecedores')
       .select('id, nome, ativo')
@@ -96,6 +105,7 @@ export default function ContasPagar() {
           .lte('data_vencimento', `${filtroAno}-12-31`)
       }
       if (filtroCategoria) consulta = consulta.eq('categoria_id', filtroCategoria)
+      if (filtroSubcategoria) consulta = consulta.eq('subcategoria_id', filtroSubcategoria)
       if (filtroFornecedor === 'sem') consulta = consulta.is('fornecedor_id', null)
       else if (filtroFornecedor) consulta = consulta.eq('fornecedor_id', filtroFornecedor)
       if (buscaAplicada) {
@@ -118,13 +128,21 @@ export default function ContasPagar() {
     return () => {
       cancelado = true
     }
-  }, [filtroStatus, filtroAno, filtroCategoria, filtroFornecedor, buscaAplicada])
+  }, [filtroStatus, filtroAno, filtroCategoria, filtroSubcategoria, filtroFornecedor, buscaAplicada])
 
   const nomeCategoria = useMemo(() => {
     const mapa: Record<string, string> = {}
     categorias.forEach((c) => (mapa[c.id] = c.nome))
     return mapa
   }, [categorias])
+
+  const nomeSubcategoria = useMemo(() => {
+    const mapa: Record<string, string> = {}
+    subcategorias.forEach((s) => (mapa[s.id] = s.nome))
+    return mapa
+  }, [subcategorias])
+
+  const subsDaCategoria = subcategorias.filter((s) => s.categoria_id === filtroCategoria)
 
   const nomeFornecedor = useMemo(() => {
     const mapa: Record<string, string> = {}
@@ -147,6 +165,7 @@ export default function ContasPagar() {
     setFiltroStatus('abertas')
     setFiltroAno('todos')
     setFiltroCategoria('')
+    setFiltroSubcategoria('')
     setFiltroFornecedor('')
     setBusca('')
     setBuscaAplicada('')
@@ -197,11 +216,37 @@ export default function ContasPagar() {
 
         <div className="campo">
           <label htmlFor="f-cat">Categoria</label>
-          <select id="f-cat" value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)}>
+          <select
+            id="f-cat"
+            value={filtroCategoria}
+            onChange={(e) => {
+              setFiltroCategoria(e.target.value)
+              setFiltroSubcategoria('')
+            }}
+          >
             <option value="">Todas as categorias</option>
             {categorias.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="campo">
+          <label htmlFor="f-sub">Subcategoria</label>
+          <select
+            id="f-sub"
+            value={filtroSubcategoria}
+            onChange={(e) => setFiltroSubcategoria(e.target.value)}
+            disabled={!filtroCategoria}
+          >
+            <option value="">
+              {filtroCategoria ? 'Todas as subcategorias' : 'Escolha uma categoria'}
+            </option>
+            {subsDaCategoria.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.nome}
               </option>
             ))}
           </select>
@@ -310,7 +355,12 @@ export default function ContasPagar() {
                         )}
                       </td>
                       <td>{l.fornecedor_id ? (nomeFornecedor[l.fornecedor_id] ?? '—') : '—'}</td>
-                      <td>{nomeCategoria[l.categoria_id] ?? '—'}</td>
+                      <td>
+                        {nomeCategoria[l.categoria_id] ?? '—'}
+                        {l.subcategoria_id && nomeSubcategoria[l.subcategoria_id] && (
+                          <span className="sub-nota">{nomeSubcategoria[l.subcategoria_id]}</span>
+                        )}
+                      </td>
                       <td className="num">{formatarMoeda(l.valor_original)}</td>
                       <td className="num">
                         {l.status === 'Cancelada' ? '—' : formatarMoeda(l.saldo_principal)}
